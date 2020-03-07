@@ -9,6 +9,12 @@ NgxIndexedDBService for index database query function.
 ## Database Create
 use src/app/cores/database.ts to create indexdb table and storeSchema.
 
+## Folder Structure
+public folder for component and cores/services/ folder for service.
+
+## cores/material
+Material UI Modules can import and export at cores/material/material.modules.ts
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
