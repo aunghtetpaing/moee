@@ -20,7 +20,14 @@ import { MoneylistComponent } from './public/moneylist/moneylist.component';
 const dbConfig: DBConfig = {
   name: 'moee',
   version: 1,
-  objectStoresMeta: DatabaseTables
+  objectStoresMeta: [{
+    store: 'people',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'name', keypath: 'name', options: { unique: false } },
+      { name: 'email', keypath: 'email', options: { unique: false } }
+    ]
+  }]
 };
 
 @NgModule({
