@@ -3,10 +3,10 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 @Component({
   selector: 'app-moneylist',
-  templateUrl: './moneylist.component.html',
-  styleUrls: ['./moneylist.component.css']
+  templateUrl: './money-list-type.component.html',
+  styleUrls: ['./money-list-type.component.css']
 })
-export class MoneylistComponent implements OnInit {
+export class MoneylistTypeComponent implements OnInit {
 
   showlists : [];
 
@@ -17,8 +17,6 @@ export class MoneylistComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    localStorage.removeItem('item');
 
     this.showlists = JSON.parse(localStorage.getItem("item"));
 

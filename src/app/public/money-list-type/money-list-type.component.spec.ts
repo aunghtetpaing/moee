@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MoneylistComponent } from './moneylist.component';
+import { MoneylistTypeComponent } from './money-list-type.component';
 
 describe('MoneylistComponent', () => {
-  let component: MoneylistComponent;
-  let fixture: ComponentFixture<MoneylistComponent>;
+  let component: MoneylistTypeComponent;
+  let fixture: ComponentFixture<MoneylistTypeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoneylistComponent ]
+      declarations: [ MoneylistTypeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MoneylistComponent);
+    fixture = TestBed.createComponent(MoneylistTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
