@@ -1,0 +1,2 @@
+.navigation { width: 100%; display: flex; flex-direction: row; margin: 0px; padding: 0px; }
+.navigation > li { list-style: none; font-size: 12px; }

@@ -1,7 +1,10 @@
-# Moee
-Ministry of Electricity and Energy
+# Ministry of Electricity and Energy (MOEE)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+
+## IndexDb 
+Read NgxIndexedDBModule API at (https://www.npmjs.com/package/ngx-indexed-db).
+NgxIndexedDBService for index database query function.
 
 ## Development server
 

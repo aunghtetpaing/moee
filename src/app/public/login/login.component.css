@@ -1,0 +1,12 @@
+
+.mat-toolbar-multiple-rows { min-height: 50px; }
+.mat-toolbar-row { height: 50px; }
+
+.flex-container-middle { display: flex; justify-content: center; }
+.login-card { width: 400px; margin-top: 80px; }
+
+.mat-card-content { display: flex; flex-direction: column; align-items: center; margin-top: 50px; margin-bottom: 50px; }
+.mat-card-image { width: 200px; height: 200px; }
+
+.login-form { width: 100%; display: flex; flex-direction: column; }
+.mat-form-field { width: 100%; }

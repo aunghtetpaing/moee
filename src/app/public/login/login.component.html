@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <h3> Ministry of Electricity and Energy (MOEE) </h3>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<section class="flex-container-middle">
+    <mat-card class="login-card">
+        <mat-card-header>
+          <mat-card-title> software ထဲသို့ဝင်ရန် </mat-card-title>
+          <mat-card-subtitle> အကောင့်နာမည်နှင့် စကားဝှတ်ထည့်ပေးရန် </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <img mat-card-image src="../../../assets/images/logo.png" alt="MOEE">
+
+            <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+              <mat-form-field>
+                <input matInput formControlName="username" placeholder="သင်၏ အကောင့်နာမည်ထည့်ရန်" />
+              </mat-form-field>
+              
+              <mat-form-field>
+                <input matInput formControlName="password" placeholder="စကားဝှတ်ထည့်ရန်" />
+              </mat-form-field>
+
+              <button mat-raised-button color="primary"> ၀င်မည် </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</section>
