@@ -15,6 +15,7 @@ import { LoginComponent } from './public/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './public/dashboard/dashboard.component';
 import { NavigationComponent } from './public/share/navigation/navigation.component';
+import { MoneylistComponent } from './public/moneylist/moneylist.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -28,6 +29,7 @@ const dbConfig: DBConfig = {
     LoginComponent,
     DashboardComponent,
     NavigationComponent,
+    MoneylistComponent,
   ],
   imports: [
     BrowserModule,
