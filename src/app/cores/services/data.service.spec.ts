@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WebsqlService } from './websql.service';
+import { DataService } from './data.service';
 
-describe('WebsqlService', () => {
+describe('DataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: WebsqlService = TestBed.get(WebsqlService);
+    const service: DataService = TestBed.get(DataService);
     expect(service).toBeTruthy();
   });
 });

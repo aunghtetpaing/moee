@@ -1,0 +1,5 @@
+.data-btn { margin-left: 20px; }
+.data-btn:first-child{ margin-left: 0px; }
+.snackbar-message { margin: 0px; padding: 0px; text-align: center; }
+.table { width: 100%; }
+.input-sheet { width: 100%; }
