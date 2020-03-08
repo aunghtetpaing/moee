@@ -10,7 +10,7 @@ export class MoneylistTypeComponent implements OnInit {
 
   showlists : [];
 
-  moneylists = JSON.parse(localStorage.getItem('item')) || [] ;
+  moneylists = JSON.parse(localStorage.getItem('moneylists')) || [] ;
 
   moneylist:string;
 
@@ -18,7 +18,7 @@ export class MoneylistTypeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.showlists = JSON.parse(localStorage.getItem("item"));
+    this.showlists = JSON.parse(localStorage.getItem("moneylists"));
 
     return this.showlists;
   }
@@ -27,12 +27,25 @@ export class MoneylistTypeComponent implements OnInit {
 
     this.moneylists.push(this.moneylist);
 
-    localStorage.setItem("item", JSON.stringify(this.moneylists));
+    localStorage.setItem("moneylists", JSON.stringify(this.moneylists));
 
-    this.showlists = JSON.parse(localStorage.getItem("item"));
+    this.showlists = JSON.parse(localStorage.getItem("moneylists"));
 
     this.moneylist = '';
 
     return this.showlists;
   }
+
+  deleteMoneyList(msg) {
+
+    this.moneylists.splice(msg, 1);
+
+    localStorage.setItem("moneylists", JSON.stringify(this.moneylists));
+
+    this.showlists = JSON.parse(localStorage.getItem("moneylists"));
+
+    return this.showlists;
+
+  }
+
 }
