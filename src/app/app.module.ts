@@ -15,10 +15,7 @@ import { LoginComponent } from './public/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './public/dashboard/dashboard.component';
 import { NavigationComponent } from './public/share/navigation/navigation.component';
-import { SideNavigationComponent } from './public/share/side-navigation/side-navigation.component';
-
-/* Demo Data */
-import { DataComponent } from './demo/data/data.component';
+import { MoneylistTypeComponent } from './public/money-list-type/money-list-type.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -32,8 +29,7 @@ const dbConfig: DBConfig = {
     LoginComponent,
     DashboardComponent,
     NavigationComponent,
-    SideNavigationComponent,
-    DataComponent,
+    MoneylistTypeComponent,
   ],
   imports: [
     BrowserModule,

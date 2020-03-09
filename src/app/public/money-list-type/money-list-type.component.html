@@ -1,0 +1,32 @@
+<app-navigation></app-navigation>
+
+<mat-toolbar-row>
+    <h3>ငွေစာရင်းအမျိုးအစား စာရင်းသွင်းရန်</h3>
+</mat-toolbar-row>
+
+<mat-toolbar-row class="mt-3">
+    <mat-card>
+        <form class="example-form">
+            <mat-form-field class="mat-input-wrapper">
+                <mat-label>ငွေစာရင်းအမျိုးအစားထည့်ပါ</mat-label>
+                <input matInput placeholder="" value="" [(ngModel)]="moneylist" name="moneylist">
+            </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary" (click)="saveMoneyList()">သိမ်းမယ်</button>
+    </mat-card>
+</mat-toolbar-row>
+
+<section class="flex-container-middle mt-5">
+    <mat-list>
+        <mat-list-item *ngFor="let showlist of showlists;let i = index"> 
+
+                {{ showlist }}
+
+                <button class="pull-right btn btn-sm btn-warning" 
+                (click)="deleteMoneyList(i)">
+                Delete
+                </button>
+
+        </mat-list-item>
+    </mat-list>
+</section>
