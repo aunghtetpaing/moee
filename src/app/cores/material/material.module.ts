@@ -25,6 +25,8 @@ import {
   MatTreeModule,
   MatSelect,
   MatSnackBarModule,
+  MatExpansionModule,
+  MatBottomSheetModule,
 } from '@angular/material';
 
 @NgModule({
@@ -52,7 +54,8 @@ import {
       MatProgressSpinnerModule,
       MatStepperModule,
       MatTreeModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatBottomSheetModule
   ],
   exports: [
     MatButtonModule,
@@ -78,7 +81,9 @@ import {
       MatStepperModule,
       MatTreeModule,
       MatSnackBarModule,
-      MatToolbarModule
+      MatToolbarModule,
+      MatExpansionModule,
+      MatBottomSheetModule
   ],
   providers: [
     MatDatepickerModule

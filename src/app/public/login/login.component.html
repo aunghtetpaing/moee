@@ -16,11 +16,11 @@
 
             <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
               <mat-form-field>
-                <input matInput formControlName="username" placeholder="သင်၏ အကောင့်နာမည်ထည့်ရန်" />
+                <input matInput type="text" formControlName="username" placeholder="သင်၏ အကောင့်နာမည်ထည့်ရန်" />
               </mat-form-field>
               
               <mat-form-field>
-                <input matInput formControlName="password" placeholder="စကားဝှတ်ထည့်ရန်" />
+                <input matInput type="password" formControlName="password" placeholder="စကားဝှတ်ထည့်ရန်" />
               </mat-form-field>
 
               <button mat-raised-button color="primary"> ၀င်မည် </button>
