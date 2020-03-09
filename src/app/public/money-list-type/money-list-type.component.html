@@ -20,13 +20,17 @@
     <mat-list>
         <mat-list-item *ngFor="let showlist of showlists;let i = index"> 
 
-                {{ showlist }}
+            <mat-grid-list cols="3">
+               
+                    {{ showlist }} 
 
-                <button class="pull-right btn btn-sm btn-warning" 
-                (click)="deleteMoneyList(i)">
-                Delete
-                </button>
+                    <button mat-raised-button color="primary" (click)="deleteMoneyList(i)"> ဖျက်မယ်</button>
+                    &nbsp;
+                    <button mat-raised-button color="warn" (click)="editMoneyList(i)"> ပြင်မယ်</button>
 
+                
+            </mat-grid-list>
         </mat-list-item>
     </mat-list>
+    
 </section>

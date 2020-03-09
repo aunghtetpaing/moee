@@ -36,9 +36,9 @@ export class MoneylistTypeComponent implements OnInit {
     return this.showlists;
   }
 
-  deleteMoneyList(msg) {
+  deleteMoneyList(index) {
 
-    this.moneylists.splice(msg, 1);
+    this.moneylists.splice(index, 1);
 
     localStorage.setItem("moneylists", JSON.stringify(this.moneylists));
 
