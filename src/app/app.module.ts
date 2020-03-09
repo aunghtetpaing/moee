@@ -14,11 +14,12 @@ import { DatabaseTables } from './cores/database';
 import { LoginComponent } from './public/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './public/dashboard/dashboard.component';
-import { NavigationComponent } from './public/share/navigation/navigation.component';
-import { SideNavigationComponent } from './public/share/side-navigation/side-navigation.component';
 
 /* Demo Data */
 import { DataComponent } from './demo/data/data.component';
+import { SideNavigationComponent } from './public/share/side-navigation/side-navigation.component';
+import { NavigationComponent } from './public/share/navigation/navigation.component';
+import { RegionalComponent } from './public/regional/regional.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -31,9 +32,10 @@ const dbConfig: DBConfig = {
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    NavigationComponent,
-    SideNavigationComponent,
     DataComponent,
+    SideNavigationComponent,
+    NavigationComponent,
+    RegionalComponent
   ],
   imports: [
     BrowserModule,

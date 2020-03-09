@@ -7,14 +7,12 @@ const lastName = ['Aung Aung', 'Kyaw Kyaw', 'Aung Kyaw', 'Tun Tun', 'Aung Tun', 
 
 export class DataService {
 
-  pwdLength: 6;
-
   constructor() { }
 
   generateUser() {
     let rA: any = Math.floor(Math.random()*firstName.length);
     let rB: any = Math.floor(Math.random()*lastName.length);
     return firstName[rA] + ' ' + lastName[rB];
-
   }
+  
 }

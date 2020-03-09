@@ -4,13 +4,15 @@ import { LoginComponent } from './public/login/login.component';
 import { DashboardComponent } from './public/dashboard/dashboard.component';
 import { AuthGuard } from './cores/guards/auth.guard';
 import { DataComponent } from './demo/data/data.component';
+import { RegionalComponent } from './public/regional/regional.component';
 
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'demo', component: DataComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'regional', component: RegionalComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
