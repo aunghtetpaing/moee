@@ -23,6 +23,13 @@ const TREE_DATA: NavNode[] = [
       {name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ', url: '/regional' },
     ]
   },
+  {
+    name: 'ယူနစ်အလွှာသတ်မှတ်ချက်',
+    url: 'unit-specification',
+    children:[
+      {name: 'ယူနစ်နှုန်းထားစာရင်း' , url:'/unit-specification'}
+    ]
+  }
 ];
 
 

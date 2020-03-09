@@ -1,1 +1,39 @@
-<p>unit-specification works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <ul class="navigation">
+            <li> <button mat-button (click)="drawer.toggle()"> <mat-icon> menu </mat-icon> </button> </li>
+        </ul>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side">
+        <app-side-navigation></app-side-navigation>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <!-- <button type="button" mat-button (click)="drawer.toggle()">
+      </button> -->
+      <div class="mat-drawer-container">
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>ယူနစ်အလွှာနှုန်းထားစာရင်းသတ်မှတ်ခြင်း</mat-panel-title>
+                </mat-expansion-panel-header>
+                <form class="example-form">
+                    <mat-form-field>
+                        <mat-label>ယူနစ်နှုန်းထားနာမည်</mat-label>
+                        <input matInput type="text"/>
+                    </mat-form-field>	
+                </form>
+                <br>
+                <button mat-raised-button color="primary">
+                    <mat-icon>save_file</mat-icon>
+                    သိမ်းမည်
+                </button>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>  
+    </div>
+  
+  </mat-drawer-container>

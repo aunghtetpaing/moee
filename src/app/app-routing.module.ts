@@ -12,10 +12,11 @@ import { RegionalComponent } from './public/regional/regional.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
-  { path: 'unit-specification',component:UnitSpecificationComponent},
   { path: 'demo', component: DataComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'regional', component: RegionalComponent, canActivate: [AuthGuard] }
+  { path: 'regional', component: RegionalComponent, canActivate: [AuthGuard] },
+  { path: 'unit-specification',component:UnitSpecificationComponent, canActivate:[AuthGuard] },
+
 ];
 
 @NgModule({
