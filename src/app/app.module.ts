@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './public/dashboard/dashboard.component';
 import { NavigationComponent } from './public/share/navigation/navigation.component';
 import { MoneylistTypeComponent } from './public/money-list-type/money-list-type.component';
+import { MoneyListTypeEditComponent } from './public/money-list-type-edit/money-list-type-edit.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -30,6 +31,7 @@ const dbConfig: DBConfig = {
     DashboardComponent,
     NavigationComponent,
     MoneylistTypeComponent,
+    MoneyListTypeEditComponent,
   ],
   imports: [
     BrowserModule,

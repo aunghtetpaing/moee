@@ -8,43 +8,45 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 })
 export class MoneylistTypeComponent implements OnInit {
 
-  showlists : [];
+  showLists : [];
 
-  moneylists = JSON.parse(localStorage.getItem('moneylists')) || [] ;
+  moneyListTypes = JSON.parse(localStorage.getItem('moneylists')) || [] ;
 
-  moneylist:string;
+  moneyListType:string;
 
   constructor() { }
 
   ngOnInit() {
 
-    this.showlists = JSON.parse(localStorage.getItem("moneylists"));
+    this.showLists = JSON.parse(localStorage.getItem("moneylists"));
 
-    return this.showlists;
+    return this.showLists;
   }
 
   saveMoneyList(){
 
-    this.moneylists.push(this.moneylist);
+    if(this.moneyListType !== undefined){
+        this.moneyListTypes.push(this.moneyListType);
 
-    localStorage.setItem("moneylists", JSON.stringify(this.moneylists));
-
-    this.showlists = JSON.parse(localStorage.getItem("moneylists"));
-
-    this.moneylist = '';
-
-    return this.showlists;
+        localStorage.setItem("moneylists", JSON.stringify(this.moneyListTypes));
+    
+        this.showLists = JSON.parse(localStorage.getItem("moneylists"));
+    
+        this.moneyListType = '';
+    
+        return this.showLists;
+    }
   }
 
   deleteMoneyList(index) {
 
-    this.moneylists.splice(index, 1);
+    this.moneyListTypes.splice(index, 1);
 
-    localStorage.setItem("moneylists", JSON.stringify(this.moneylists));
+    localStorage.setItem("moneylists", JSON.stringify(this.moneyListTypes));
 
-    this.showlists = JSON.parse(localStorage.getItem("moneylists"));
+    this.showLists = JSON.parse(localStorage.getItem("moneylists"));
 
-    return this.showlists;
+    return this.showLists;
 
   }
 

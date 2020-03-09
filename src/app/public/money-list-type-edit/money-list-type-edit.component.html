@@ -1,0 +1,20 @@
+<app-navigation></app-navigation>
+
+<mat-toolbar-row>
+    <h3>ငွေစာရင်းအမျိုးအစား စာရင်းပြင်ရန်</h3>
+</mat-toolbar-row>
+<mat-toolbar-row class="mt-3">
+    <mat-card>
+        <form class="example-form">
+            <mat-form-field class="mat-input-wrapper">
+                <mat-label>ငွေစာရင်းအမျိုးအစားထည့်ပါ</mat-label>
+                <input matInput placeholder="" value="" [(ngModel)]="moneyListType" name="moneyListType" autocomplete="off">
+            </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary" (click)="editMoneyList(value)" [disabled]="!moneyListType" >ပြင်မယ်</button>
+        &nbsp;
+        <button mat-raised-button color="basic" routerLink='/money-list-type'>ပယ်ဖျက်</button>
+
+    </mat-card>
+</mat-toolbar-row>
+
