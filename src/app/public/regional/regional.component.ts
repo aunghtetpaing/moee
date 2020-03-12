@@ -2,6 +2,11 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { MatSnackBar, MatPaginator, MatTableDataSource, MatBottomSheet } from '@angular/material';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
   selector: 'app-regional',
@@ -16,8 +21,11 @@ export class RegionalComponent implements OnInit {
   panelOpenState: boolean;
 
   snackBarOption: any = { duration: 3000, horizontalPosition: 'center', verticalPosition: 'bottom' };
+  submitted: any = {};
   actionMessage: any = {};
   stateObject: any = {};
+  editObject: any = {};
+  exportObject: any = {};
   displayedColumns: any = ['id', 'name', 'created_date', 'updated_date', 'active', 'option'];
   dataSource: MatTableDataSource<any>;
   dialogComfirm: any = {};
@@ -28,14 +36,17 @@ export class RegionalComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false })
   paginator: MatPaginator;
 
-  @ViewChild('editStateTempate', { static: false })
+  @ViewChild('addStateTemplate', { static: false })
   editStateTempate: any = TemplateRef;
+
+  @ViewChild('editRegionalTemplate', { static: false })
+  editRegionalTemplate: any = TemplateRef;
 
   constructor(
     private snackBarCtrl: MatSnackBar,
     private sheetCtrl: MatBottomSheet,
     private fb: FormBuilder,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
   ) { }
 
   get f() {
@@ -58,8 +69,14 @@ export class RegionalComponent implements OnInit {
     });
   }
 
+  private saveAsExcelFile(buffer: any, fileName: string) {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  } 
+
   private getAll() {
     this.dbService.getAll('regional').then((result: any) => {
+      this.exportObject = result;
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
     });
@@ -89,7 +106,7 @@ export class RegionalComponent implements OnInit {
     
   }
 
-  addState(element: any) {
+  openAddStateForm(element: any) {
     this.stateObject.title = element.name;
     this.stateObject.regional_id = element.id;
     this.stateObject.created_date = new Date();
@@ -99,13 +116,17 @@ export class RegionalComponent implements OnInit {
     this.dialogComfirm = this.sheetCtrl.open(this.editStateTempate);
   }
 
-  updated(element:any) {
-    return element;
+  openEditRegionalForm(element:any) {
+    this.editObject = element;
+    this.f.regionalName.setValue(element.name);
+    this.dialogComfirm = this.sheetCtrl.open(this.editRegionalTemplate);
   }
 
   saveState() {
-    
+    this.submitted.state = true;
+
     if(this.stateForm.invalid) {
+      this.submitted.state = false;
       return;
     }
 
@@ -127,11 +148,48 @@ export class RegionalComponent implements OnInit {
         this.snackBarCtrl.openFromTemplate(this.snackBarTemplate, this.snackBarOption);
       }
     });
+
+    this.submitted.state = false;
+  }
+
+  exportAsExcelFile() {
+    let exportExcel: any = [];
+    let activeState: string;
+    
+    for(let i =0; i<this.exportObject.length; i++) {
+
+      if(this.exportObject[i].active === 1) {
+        activeState = 'အသုံးပြုရန်အသင့်ရှိသည်';
+      }
+
+      if(this.exportObject[i].active === 0) {
+        activeState = 'အသုံးပြုခြင်းပိတ်ထားပါသည်';
+      }
+
+      const object = {
+        '#': this.exportObject[i].id,
+        'ပြည်နယ်/တိုင်း' : this.exportObject[i].name,
+        '	စာရင်းပြုစုသည့်ရက်စွဲ': this.exportObject[i].created_date,
+        'ပြင်ဆင်သည့်ရက်စွဲ' : this.exportObject[i].updated_date,
+        'အခြေအနေ' : activeState
+      }
+
+      exportExcel.push(object);
+    }
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportExcel);
+    const workbook: XLSX.WorkBook = { Sheets: { 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ': worksheet }, SheetNames: ['ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ']};
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    this.saveAsExcelFile(excelBuffer,'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ');
+
   }
 
   onSubmit() {
-    
+    this.submitted.add = true;
+
     if(this.regionalForm.invalid) {
+      this.submitted.add = false;
       return;
     }
 
@@ -151,6 +209,29 @@ export class RegionalComponent implements OnInit {
         this.snackBarCtrl.openFromTemplate(this.snackBarTemplate, this.snackBarOption);
       }
     });
+
+    this.submitted.add = false;
+  }
+
+  editRegional() {
+    this.submitted.edit = true;
+
+    if(this.regionalForm.invalid) {
+      this.submitted.edit = false;
+      return;
+    }
+
+    this.editObject.name = this.f.regionalName.value;
+    this.editObject.updated_date = new Date();
+
+    this.dbService.update('regional',this.editObject).then(() => {
+      this.getAll();
+      this.actionMessage = 'ပြင်ဆင်မှုအောင်မြင်ပါသည်';
+      this.snackBarCtrl.openFromTemplate(this.snackBarTemplate, this.snackBarOption);
+      this.dialogComfirm.dismiss();
+    });
+
+    this.submitted.edit = false;
   }
 
   ngOnInit() {

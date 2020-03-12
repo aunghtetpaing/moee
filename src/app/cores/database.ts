@@ -29,5 +29,5 @@ export const DatabaseTables: any = [
             { name: 'updated_date', keypath: 'updated_date', options: { unique: false }},
             { name: 'active', keypath: 'active', options: { unique: false }}
         ]
-    },
+    }
 ]

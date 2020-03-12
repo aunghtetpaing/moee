@@ -114,6 +114,11 @@ export class DataComponent implements OnInit {
       });
     }
   }
+
+  regional() {
+    this.dataService.installRegional();
+  }
+
   ngOnInit() {
     this.getAll('user');
   }

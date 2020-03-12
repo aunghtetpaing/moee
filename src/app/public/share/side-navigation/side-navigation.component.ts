@@ -25,7 +25,6 @@ const TREE_DATA: NavNode[] = [
   },
 ];
 
-
 @Component({
   selector: 'app-side-navigation',
   templateUrl: './side-navigation.component.html',
