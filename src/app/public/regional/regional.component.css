@@ -1,1 +1,3 @@
 .regionalForm > .mat-form-field { width: 40%; margin-right: 20px; }
+.state-form > .mat-form-field { width: 100%; }
+.state-save { width: 100%; margin-top: 30px; }
