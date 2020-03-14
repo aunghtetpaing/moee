@@ -35,8 +35,7 @@ export const DatabaseTables: any = [
         storeConfig: { keyPath: 'id', autoIncrement: true },
         storeSchema:[
             { name: 'name', keypath: 'name', options: { unique: false }},
-            { name: 'regional_id', keypath: 'regional_id', options: { unique: false }},
-            { name: 'state_id', keypath: 'state_id', options: { unique: false }},
+            { name: 'region', keypath: 'region', options: {unique: false }},
             { name: 'phone', keypath: 'phone', options: { unique: false }},
             { name: 'address', keypath: 'address', options: { unique: false }},
             { name: 'description', keypath: 'description', options: { unique: false }},

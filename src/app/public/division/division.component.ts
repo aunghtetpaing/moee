@@ -115,29 +115,26 @@ export class DivisionComponent implements OnInit {
     this.dialogComfirm = this.sheetCtrl.open(this.editStateTemplate);
   }
 
-  addMeterOffice() {
+  addMeterOffice(element: any) {
     
     if(this.meterOfficeForm.invalid) {
       return;
     }
-
     const saveObject = {
       name: this.m.name.value,
-      regional_id: this.addMeterObject.regional_id,
-      state_id: this.addMeterObject.id,
+      region: element,
       address: this.m.address.value,
       phone: this.m.phone.value,
       description: this.m.description.value,
       created_date: new Date(),
-      update_date: new Date(),
+      updated_date: new Date(),
       active: 1
     }
-
-    console.log(saveObject);
 
     this.dbService.add('meterOffice', saveObject).then(() => {
       this.actionMessage = "စာရင်းသွင်းမှုအောင်မြင်ပါသည်";
       this.snackBarCtrl.openFromTemplate(this.snackBarTemplate, this.snackBarOption);
+      this.dialogComfirm.dismiss();
     });
 
   }
