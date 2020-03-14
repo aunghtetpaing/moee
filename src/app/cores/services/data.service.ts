@@ -4,6 +4,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 const firstName = ['David', 'Smith', 'Jone', 'Jon', 'Micheal', 'Kelvin'];
 const lastName = ['Aung Aung', 'Kyaw Kyaw', 'Aung Kyaw', 'Tun Tun', 'Aung Tun', 'Kyaw Tun'];
 const regional = ['ဧရာဝတီတိုင်းဒေသကြီး', 'ပဲခူးတိုင်းဒေသကြီး', 'ချင်းပြည်နယ်', 'ကချင်ပြည်နယ်', 'ကယားပြည်နယ်', 'ကရင်ပြည်နယ်', 'မကွေးတိုင်းဒေသကြီး','မန္တလေးတိုင်းဒေသကြီ','မွန်ပြည်နယ်', 'ရခိုင်ပြည်နယ်', 'ရှမ်းပြည်နယ်', 'စစ်ကိုင်းတိုင်းဒေသကြီး','တနင်္သာရီတိုင်းဒေသကြီး','ရန်ကုန်တိုင်းဒေသကြီး','နေပြည်တော် ပြည်ထောင်စုနယ်မြေ']
+
 @Injectable({ providedIn: 'root' })
 
 export class DataService {

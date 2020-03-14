@@ -15,15 +15,16 @@
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="true">
               <mat-expansion-panel-header>
-                <mat-panel-title> ပြည်နယ်နှင့်တိုင်းဒေသကြီးများအလိုက် မြို့နယ်စာရင်း </mat-panel-title>
-                <mat-panel-description> ပြည်နယ်နှင့်တိုင်းဒေသကြီးများအလိုက် မြို့နယ်များအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
+                <mat-panel-title> မီတာရုံးစာရင်းများ {{ data | regional | async }} </mat-panel-title>
+                <mat-panel-description> မီတာရုံးများအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
               </mat-expansion-panel-header>
 
               <mat-paginator [pageSizeOptions]="[15, 30, 60, 120]" class="paginator"></mat-paginator>
 
-              <div class="table-header">
+              <!-- <div class="table-header">
                 <button mat-raised-button color="primary" (click)="exportAsExcelFile()"> <mat-icon> cloud_download </mat-icon> Excel ဖိုင်ရယူမည် </button> 
-              </div>
+              </div> -->
+
               <table mat-table [dataSource]="dataSource" class="table" matSort (matSortChange)="sortData($event)">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
@@ -31,14 +32,34 @@
                   </ng-container>
                   
                 <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> မြို့နယ် </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> မီတာရုံးအမှတ် </th>
+                  <td mat-cell *matCellDef="let element">  </td>
                 </ng-container>
 
-                <ng-container matColumnDef="regional_id">
+                <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> မြို့နယ် </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="region">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ပြည်နယ်/တိုင်း </th>
                     <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
-                  </ng-container>
+                </ng-container>
+
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> လိပ်စာ </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ဖုန်းနံပါတ် </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="other">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> အခြားအကြောင်းအရာ </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+                </ng-container>
               
                 <ng-container matColumnDef="created_date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> စာရင်းပြုစုသည့်ရက်စွဲ </th>
