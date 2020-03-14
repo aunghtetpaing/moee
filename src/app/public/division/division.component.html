@@ -95,7 +95,7 @@
     <mat-nav-list>
       <h3> မီတာရုံးစာရင်းပြုလုပ်ရန် </h3>
   
-      <form [formGroup]="meterOfficeForm" (ngSubmit)="addMeterOffice()" class="state-form">
+      <form [formGroup]="meterOfficeForm" (ngSubmit)="addMeterOffice(addMeterObject)" class="state-form">
         <mat-form-field hintLabel="မီတာရုံးအမည်ထည်ရန်" class="input-sheet">
           <input matInput type="text" formControlName="name" />
         </mat-form-field>
@@ -117,7 +117,7 @@
           </button>
       </form>
     </mat-nav-list>
-  </ng-template>
+</ng-template>
 
 <ng-template #editStateTemplate>
   <mat-nav-list>
