@@ -20,6 +20,7 @@ import { DataComponent } from './demo/data/data.component';
 import { SideNavigationComponent } from './public/share/side-navigation/side-navigation.component';
 import { NavigationComponent } from './public/share/navigation/navigation.component';
 import { RegionalComponent } from './public/regional/regional.component';
+import { DivisionComponent } from './public/division/division.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -35,7 +36,8 @@ const dbConfig: DBConfig = {
     DataComponent,
     SideNavigationComponent,
     NavigationComponent,
-    RegionalComponent
+    RegionalComponent,
+    DivisionComponent
   ],
   imports: [
     BrowserModule,

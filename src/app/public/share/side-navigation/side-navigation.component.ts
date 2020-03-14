@@ -21,6 +21,7 @@ const TREE_DATA: NavNode[] = [
     url: 'regional',
     children: [
       {name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ', url: '/regional' },
+      {name: 'မြို့နယ်များ', url: '/division' },
     ]
   },
 ];
