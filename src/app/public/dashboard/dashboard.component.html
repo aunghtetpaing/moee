@@ -1,20 +1,23 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <ul class="navigation">
-            <li> <button mat-button (click)="drawer.toggle()"> <mat-icon> menu </mat-icon> </button> </li>
-        </ul>
-    </mat-toolbar-row>
+<mat-toolbar color="primary" class="app-header">
+  <mat-toolbar-row>
+    <ul class="navigation">
+      <li>
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </mat-toolbar-row>
 </mat-toolbar>
+<mat-drawer-container class="app-body">
+  <mat-drawer #drawer mode="side" opened>
+    <app-side-navigation></app-side-navigation>
+  </mat-drawer>
+  <mat-drawer-content>Main Content</mat-drawer-content>
 
-<mat-drawer-container autosize>
-    <mat-drawer #drawer mode="side">
-        <app-side-navigation></app-side-navigation>
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </div>
-  
-  </mat-drawer-container>
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+</mat-drawer-container>
