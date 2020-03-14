@@ -21,6 +21,8 @@ import { SideNavigationComponent } from './public/share/side-navigation/side-nav
 import { NavigationComponent } from './public/share/navigation/navigation.component';
 import { RegionalComponent } from './public/regional/regional.component';
 import { DivisionComponent } from './public/division/division.component';
+import { MeterOfficeComponent } from './public/meter-office/meter-office.component';
+import { RegionalPipe } from './pipes/regional.pipe';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -37,7 +39,9 @@ const dbConfig: DBConfig = {
     SideNavigationComponent,
     NavigationComponent,
     RegionalComponent,
-    DivisionComponent
+    DivisionComponent,
+    MeterOfficeComponent,
+    RegionalPipe
   ],
   imports: [
     BrowserModule,

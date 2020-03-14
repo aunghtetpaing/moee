@@ -18,10 +18,11 @@ interface FlatNode {
 const TREE_DATA: NavNode[] = [
   {
     name: 'ထိန်းချုပ်ခြင်းများ',
-    url: 'regional',
+    url: '',
     children: [
-      {name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ', url: '/regional' },
-      {name: 'မြို့နယ်များ', url: '/division' },
+      { name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ', url: '/regional' },
+      { name: 'မြို့နယ်များ', url: '/division' },
+      { name: 'မီတာရုံ', url: '/meter-office' }
     ]
   },
 ];

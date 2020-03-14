@@ -5,6 +5,8 @@ import { DashboardComponent } from './public/dashboard/dashboard.component';
 import { AuthGuard } from './cores/guards/auth.guard';
 import { DataComponent } from './demo/data/data.component';
 import { RegionalComponent } from './public/regional/regional.component';
+import { DivisionComponent } from './public/division/division.component';
+import { MeterOfficeComponent } from './public/meter-office/meter-office.component';
 
 
 const routes: Routes = [
@@ -12,7 +14,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'demo', component: DataComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'regional', component: RegionalComponent, canActivate: [AuthGuard] }
+  { path: 'regional', component: RegionalComponent, canActivate: [AuthGuard] },
+  { path: 'division', component: DivisionComponent, canActivate:[AuthGuard] },
+  { path: 'meter-office', component: MeterOfficeComponent, canActivate:[AuthGuard] }
 ];
 
 @NgModule({
