@@ -25,7 +25,6 @@ const TREE_DATA: NavNode[] = [
       { name: 'မီတာရုံ', url: '/meter-office' }
     ]
   },
-
   {
     name: 'လယ်ဂျာစာအုပ်များ',
     url: '',
@@ -33,6 +32,14 @@ const TREE_DATA: NavNode[] = [
       { name: 'လယ်ဂျာစာအုပ်အသစ်ပြုလုပ်ရန်', url: '/create-leagerbook' }
     ]
   },
+  {
+    name: 'ငွေစာရင်း',
+    url: '',
+    children: [
+      { name: 'ငွေစာရင်းများအားကြည့်ရန်', url: '/money-type' }
+    ]
+  },
+
 ];
 
 @Component({

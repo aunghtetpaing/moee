@@ -1,0 +1,151 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <ul class="navigation">
+            <li> <button mat-button (click)="drawer.toggle()"> <mat-icon> menu </mat-icon> </button> </li>
+        </ul>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side">
+        <app-side-navigation></app-side-navigation>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title> လယ်ဂျာစာအုပ်များ </mat-panel-title>
+                <mat-panel-description> လယ်ဂျာစာအုပ်များအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <form [formGroup]="leagerBookForm" (ngSubmit)="createNewLeagerBook()" class="regionalForm">
+                <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ခေါင်းစဉ်ထည့်ရန်">
+                    <input matInput type="text" formControlName="name" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ပြုလုပ်လိုသည့် (နှစ်လ) ရွေးချယ်ရန်">
+                    <input matInput [matDatepicker]="picker" formControlName="getDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker touchUi startView="multi-year"></mat-datepicker>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary"> <mat-icon> add_circle </mat-icon> သိမ်းမည် </button>
+              </form>
+
+              <mat-paginator [pageSizeOptions]="[15, 30, 60, 120]" class="paginator"></mat-paginator>
+
+              <!-- <div class="table-header">
+                <button mat-raised-button color="primary" (click)="exportAsExcelFile()"> <mat-icon> cloud_download </mat-icon> Excel ဖိုင်ရယူမည် </button> 
+              </div> -->
+
+              <table mat-table [dataSource]="dataSource" class="table">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                    <td mat-cell *matCellDef="let element"> 0000{{ element.id }} </td>
+                  </ng-container>
+        
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> လယ်ဂျာစာအုပ်ခေါင်း </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="year">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ခုနှစ် </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.year }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="month">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> လ </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.month }} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="created_date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> စာရင်းပြုစုသည့်ရက်စွဲ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.created_date | date: 'short' }} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="updated_date">
+                  <th mat-header-cell *matHeaderCellDef> ပြင်ဆင်သည့်ရက်စွဲ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.updated_date | date: 'short' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="active">
+                    <th mat-header-cell *matHeaderCellDef> အခြေအနေ </th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-slide-toggle class="example-margin" color="primary" [checked]="element.active === 1" (change)="statusChange(element)"> 
+                            <span *ngIf="element.active === 0"> အသုံးပြုခြင်းပိတ်ထားပါသည် </span>
+                            <span *ngIf="element.active === 1"> အသုံးပြုရန်အသင့်ရှိသည် </span>
+                        </mat-slide-toggle>
+                    </td>
+                  </ng-container>
+        
+                <ng-container matColumnDef="option">
+                    <th mat-header-cell *matHeaderCellDef> ရွေးချယ်စရာ </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openLeagerEditTemplateForm(element)"> 
+                            <mat-icon> cloud_upload </mat-icon> 
+                        </button>
+
+                        <button mat-icon-button color="primary" matTooltip="{{ element.name }} အတွင်းရှိ စာမျက်နှာများကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/page/{{ element.id }}"> 
+                          <mat-icon> playlist_add </mat-icon> 
+                        </button>
+
+                        <!-- <button mat-icon-button color="primary" matTooltip="အသေးစိတ်ကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/regional_detail/:id"> 
+                          <mat-icon> assessment </mat-icon> 
+                        </button> -->
+                        
+                    </td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+  </mat-drawer-container>
+
+
+<ng-template #snackBarTemplate>
+  <p class="snackbar-message"> {{ actionMessage }} </p>
+</ng-template>
+
+<ng-template #addStateTemplate>
+  <mat-nav-list>
+    <h3> {{ stateObject.title }} </h3>
+
+    <form [formGroup]="stateForm" (ngSubmit)="saveState()" class="state-form">
+      <mat-form-field hintLabel="မြို့နယ်နာမည်ထည့်သွင်းရန်" class="input-sheet">
+        <input matInput type="text" formControlName="name" />
+
+        <mat-error *ngIf="s.name.hasError('required')"> မြို့နယ်နာမည်ထည့်သွင်းရန်လိုအပ်ပါသည် </mat-error>
+      </mat-form-field>
+
+        <button mat-raised-button color="primary" class="state-save"> 
+          <mat-icon> save </mat-icon> သိမ်းမည်
+        </button>
+    </form>
+  </mat-nav-list>
+</ng-template>
+
+<ng-template #openLeagerEditTemplate>
+  <mat-nav-list>
+    <h3> လယ်ဂျာစာအုပ်ခေါင်းစဉ် {{ editObject.name }} </h3>
+
+    <form [formGroup]="leagerBookForm" (ngSubmit)="editLeagerBook(editObject)" class="sheet-form">
+        <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ခေါင်းစဉ်ထည့်ရန်">
+            <input matInput type="text" formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ပြုလုပ်လိုသည့် (နှစ်လ) ရွေးချယ်ရန်">
+            <input matInput [matDatepicker]="picker" formControlName="getDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker touchUi startView="multi-year"></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary"> <mat-icon> save </mat-icon> သိမ်းမည် </button>
+      </form>
+
+  </mat-nav-list>
+</ng-template>

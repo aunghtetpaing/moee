@@ -12,3 +12,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .table { width: 100%; }
 .snackbar-message { margin: 0px; padding: 0px; text-align: center; }
 .table-header { width: 100%; display: flex; flex-direction: row; justify-content: flex-end; }
+.sheet-form,
+.sheet-form > .mat-form-field { width: 100%; }
+.sheet-form > button { width: 100%; margin-top: 20px; }
