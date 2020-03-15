@@ -9,6 +9,7 @@ import { DivisionComponent } from './public/division/division.component';
 import { MeterOfficeComponent } from './public/meter-office/meter-office.component';
 import { CreateLeagerbookComponent } from './public/create-leagerbook/create-leagerbook.component';
 import { PageComponent } from './public/page/page.component';
+import { MoneytypeComponent } from './public/moneytype/moneytype.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'division', component: DivisionComponent, canActivate:[AuthGuard] },
   { path: 'meter-office', component: MeterOfficeComponent, canActivate:[AuthGuard] },
   { path: 'create-leagerbook', component: CreateLeagerbookComponent, canActivate:[AuthGuard] },
-  { path: 'page/:id', component: PageComponent, canActivate:[AuthGuard] }
+  { path: 'page/:id', component: PageComponent, canActivate:[AuthGuard] },
+  { path: 'money-type', component: MoneytypeComponent, canActivate:[AuthGuard] }
 ];
 
 @NgModule({
