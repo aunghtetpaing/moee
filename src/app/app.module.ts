@@ -20,6 +20,8 @@ import { DataComponent } from './demo/data/data.component';
 import { SideNavigationComponent } from './public/share/side-navigation/side-navigation.component';
 import { NavigationComponent } from './public/share/navigation/navigation.component';
 import { RegionalComponent } from './public/regional/regional.component';
+import { UnitSpecificationComponent } from './public/unit-specification/unit-specification.component';
+import { UnitSpecificationDetailComponent } from './public/unit-specification-detail/unit-specification-detail.component';
 import { DivisionComponent } from './public/division/division.component';
 import { MeterOfficeComponent } from './public/meter-office/meter-office.component';
 import { RegionalPipe } from './pipes/regional.pipe';
@@ -44,6 +46,8 @@ const dbConfig: DBConfig = {
     SideNavigationComponent,
     NavigationComponent,
     RegionalComponent,
+    UnitSpecificationComponent,
+    UnitSpecificationDetailComponent,
     DivisionComponent,
     MeterOfficeComponent,
     RegionalPipe,
@@ -51,7 +55,7 @@ const dbConfig: DBConfig = {
     PageComponent,
     MoneytypeComponent,
     MetertypeComponent,
-    AddMeterComponent
+    AddMeterComponent,
   ],
   imports: [
     BrowserModule,

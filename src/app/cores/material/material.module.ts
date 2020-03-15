@@ -27,6 +27,7 @@ import {
   MatSnackBarModule,
   MatExpansionModule,
   MatBottomSheetModule,
+  MatProgressBarModule,
   MatSlideToggleModule,
 } from '@angular/material';
 
@@ -57,6 +58,7 @@ import {
       MatTreeModule,
       MatSnackBarModule,
       MatBottomSheetModule,
+      MatProgressBarModule,
       MatSlideToggleModule
   ],
   exports: [
@@ -86,6 +88,7 @@ import {
       MatToolbarModule,
       MatExpansionModule,
       MatBottomSheetModule,
+      MatProgressBarModule,
       MatSlideToggleModule
   ],
   providers: [

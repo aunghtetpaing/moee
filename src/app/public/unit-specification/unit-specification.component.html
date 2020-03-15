@@ -1,0 +1,94 @@
+<mat-toolbar color="primary" class="app-header">
+    <mat-toolbar-row>
+        <div class="dashboard-menu">
+            <a><h3>MOEE</h3></a>
+        </div>
+        <div>
+        <div class="header-nav-div">
+            <button mat-icon-button (click)="drawer.toggle()">
+                <mat-icon class="menu-icon">menu</mat-icon>
+        </button>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-drawer-container class="app-body">
+    <mat-drawer #drawer mode="side" opened>
+      <app-side-navigation></app-side-navigation>
+    </mat-drawer>
+    <mat-drawer-content class="app-content">
+        <mat-card class="form-div">
+            <mat-card-header>
+                <mat-card-title>
+                    ယူနစ်အလွှာနှုန်းထားစာရင်းသတ်မှတ်ခြင်း
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="form" [formGroup]='formData' (ngSubmit)='insertData()'>
+                    <mat-form-field class="form-field" appearance="outline">
+                        <mat-label>ယူနစ်နှုန်းထားနာမည်</mat-label>
+                        <input matInput formControlName='name'>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary">
+                        <mat-icon>add_circle</mat-icon>&nbsp;သိမ်းမည်
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="mat-elevation-z5">
+            <mat-card-header>
+                <mat-card-title>
+                    ထည့်သွင်းထားသော ယူနစ်အလွှာနှုန်းထားစာရင်း 
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content width="100%">
+                <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+                <table mat-table [dataSource]="displayedData" class="mat-elevation-z8" width="100%">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+                    </ng-container>
+                
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> ယူနစ်နှုန်းထားနာမည် </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> အသုံးပြုမှုအခြေအနေ </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-chip-list>
+                                <mat-chip *ngIf='element.status === 0' color="warn" selected>အသုံးမပြုပါ</mat-chip>
+                                <mat-chip *ngIf='element.status === 1' class="success" selected>အသုံးပြုဆဲ</mat-chip>
+                            </mat-chip-list>
+                        </td>
+                    </ng-container>
+                
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> စာရင်းပြုလုပ်သည့်နေ့စွဲ </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.created_date | date : 'short' }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="options">
+                        <th mat-header-cell *matHeaderCellDef> စီမံခန့်ခွဲမှုများ </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            <button mat-raised-button color="primary" routerLink="/unit-specification-detail/{{ element.id }}">
+                                <mat-icon>open_in_new</mat-icon>&nbsp;အသေးစိတ်ကြည့်ရှုမည်
+                            </button>
+                        </td>
+                        </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </mat-drawer-content>
+  </mat-drawer-container>
+  <ng-template #snackBar>
+      <p class="snackbar-message">{{ action_msg }}</p>
+  </ng-template>
+  
