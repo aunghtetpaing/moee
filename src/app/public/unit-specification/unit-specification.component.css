@@ -3,7 +3,18 @@
     max-width: 500px;
     width: 100%;
   }
-  
   .example-full-width {
     width: 100%;
   }
+  .table { width: 100%; }
+  td.mat-cell:first-of-type, 
+  td.mat-footer-cell:first-of-type, 
+  th.mat-header-cell:first-of-type { padding-left: 0px; }
+  .data-btn { margin-left: 20px; }
+  .data-btn:first-child{ margin-left: 0px; }
+
+  @media (max-width:320px) and (min-width:1px) {
+    .data-btn { width: 100%; margin:0px; margin-top: 5px; }
+    .paginator { width: 100%; margin-top: 20px; margin-bottom: 20px; }
+    .table-wrapper { width: 100%; overflow-x: auto; }
+}

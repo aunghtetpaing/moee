@@ -18,4 +18,13 @@ export const DatabaseTables: any = [
             { name: 'updated_date', keypath: 'updated_date', options: { unique: false }}
         ]
     },
+    {
+        store:'unit',
+        storeConfig: {keyPath: 'id', autoIncrement: true},
+        storeSchema : [
+            {name: 'name', keyPath:'name', options: {unique:false}},
+            {name: 'created_date', keyPath:'created_date', options: {unique:false}},
+            {name: 'updated_date', keyPath:'updated_date', options: {unique:false}},
+        ]
+    }
 ]
