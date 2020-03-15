@@ -1,0 +1,136 @@
+<mat-toolbar color="primary" class="app-header">
+    <mat-toolbar-row>
+        <div class="dashboard-menu">
+            <a><h3>MOEE</h3></a>
+        </div>
+        <div>
+            <button mat-icon-button (click)="drawer.toggle()">
+            <mat-icon class="menu-icon">menu</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container class="app-body">
+    <mat-drawer #drawer mode="side" opened>
+        <app-side-navigation></app-side-navigation>
+    </mat-drawer>
+    <mat-drawer-content class="app-content">
+        <mat-card class="form-div">
+            <mat-card-header>
+                <mat-card-title>
+                    ယူနစ်အလွှာနှုန်းထားများထည့်သွင်းရန် 
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form class="form" [formGroup]='formData' (ngSubmit)='create()'>
+                    <div class="form-container">
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label>မီတာအမျိုးအစားရွှေးချယ်ရန်</mat-label>
+                            <mat-select matInput formControlName='type'>
+                                <mat-option value="1">အိမ်သုံးမီတာ (2110/35)</mat-option>
+                                <mat-option value="2">စက်ရုံသုံးမီတာ (2110/75)</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label>ယူနစ်အလွှာ</mat-label>
+                            <input matInput formControlName='name'>
+                        </mat-form-field>
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label>ကျသင့်ငွေ</mat-label>
+                            <input matInput formControlName='amount'>
+                        </mat-form-field>
+                    </div>
+                    <button mat-raised-button color="primary">
+                        <mat-icon>add_circle</mat-icon>&nbsp;သိမ်းမည်
+                    </button>
+                    <a mat-raised-button color="warn" (click)="updateUnit(0)">
+                        <mat-icon>delete_forever</mat-icon>&nbsp;ပယ်ဖျတ်မည် 
+                    </a>
+                    <a mat-raised-button class="success" (click)="updateUnit(1)">
+                        <mat-icon>play_circle_filled</mat-icon>&nbsp;စတင်အသုံးပြုမည် 
+                    </a>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <mat-grid-list cols="2" rowHeight="2:1" class="unit-detail-item">
+            <mat-grid-tile>
+                <mat-card class="home-meter-div" raised>
+                    <mat-card-title>
+                        အိမ်သုံးမီတာယူနစ်သက်မှတ်ချက်များ
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div *ngIf="homeProgress">
+                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                        </div>
+                        <table mat-table [dataSource]="displayedHomeData" class="mat-elevation-z8" width="100%">
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef> # </th>
+                                <td mat-cell *matCellDef="let element; let i = index;" > {{ i + 1 }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> ယူနစ်အလွှာ </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.name }} ယူနစ်</td>
+                            </ng-container>
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef> ကျပ် </th>
+                                <td mat-cell *matCellDef="let element">{{ element.amount }} ကျပ်</td>
+                            </ng-container>
+                            <ng-container matColumnDef="options">
+                                <th mat-header-cell *matHeaderCellDef> စီမံခန့်ခွဲရန် </th>
+                                <td mat-cell *matCellDef="let element"> 
+                                    <button mat-raised-button color="warn" (click)="removeHomeItem(element)">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </td>
+                                </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <button mat-raised-button color="primary" class="action-btn" (click)="storeHomeItems()">
+                            <mat-icon>add_circle</mat-icon>&nbsp;သိမ်းမည်
+                        </button>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="industry-meter-div">
+                    <mat-card-title>
+                        စက်ရုံသုံးမီတာယူနစ်သက်မှတ်ချက်များ
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div *ngIf="industryProgress">
+                            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                        </div>
+                        <table mat-table [dataSource]="displayedIndustryData" class="mat-elevation-z8" width="100%">
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef> # </th>
+                                <td mat-cell *matCellDef="let element; let i = index;"> {{ i + 1 }} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> ယူနစ်အလွှာ </th>
+                                <td mat-cell *matCellDef="let element"> {{ element.name }} ယူနစ်</td>
+                            </ng-container>
+                            <ng-container matColumnDef="amount">
+                                <th mat-header-cell *matHeaderCellDef> ကျပ် </th>
+                                <td mat-cell *matCellDef="let element">{{ element.amount }} ကျပ်</td>
+                            </ng-container>
+                            <ng-container matColumnDef="options">
+                                <th mat-header-cell *matHeaderCellDef> စီမံခန့်ခွဲရန် </th>
+                                <td mat-cell *matCellDef="let element"> 
+                                    <button mat-raised-button color="warn" (click)="removeIndustryItem(element)">
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <button mat-raised-button color="primary" class="action-btn" (click)="storeIndustryItems()">
+                            <mat-icon>add_circle</mat-icon>&nbsp;သိမ်းမည်
+                        </button>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,40 @@
+.app-content {
+    padding: 10px;
+}
+
+.form-field {
+    width: 20%;
+}
+
+.mat-card {
+    padding: 20px;
+}
+
+.form-div {
+    margin: 5px;
+}
+
+.form-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+}
+
+.home-meter-div {
+    float: left;
+    width: 100%;
+    margin: 5px;
+    min-height: 100px;
+}
+
+.industry-meter-div {
+    float: left;
+    width: 100%;
+    margin: 5px;
+}
+
+.action-btn {
+    margin-top: 10px;
+}
+
+mat-card-content button,a {
+    margin-right: 10px;
+}

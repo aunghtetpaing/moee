@@ -1,0 +1,26 @@
+.app-content {
+    padding: 10px;
+}
+
+.form {
+    min-width: 150px;
+    width: 100%;
+}
+
+.form-field {
+    width: 100%;
+}
+
+.mat-card {
+    padding: 20px;
+}
+
+.__mm {
+    font-weight: bolder;
+    font-size: 20px !important;
+}
+
+.form-div {
+    margin-bottom: 10px;
+    max-width: 50%;
+}
