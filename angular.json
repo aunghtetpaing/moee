@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "moee"
+  "defaultProject": "moee",
+  "cli": {
+    "analytics": "b53fc152-4fcf-4bf1-99d5-947c1ccb1aef"
+  }
 }

@@ -1,0 +1,15 @@
+.mat-input-wrapper{
+    width:400px;
+  }
+
+.mt-3{
+    margin-top: 3rem;
+}
+
+.mt-5{
+  margin-top: 5rem;
+}
+
+.table-container { padding-left: 20px;padding-right: 20px; }
+.table-container > table { width: 100%;  }
+ 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavigationComponent } from './navigation.component';
+import { MoneyListTypeEditComponent } from './money-list-type-edit.component';
 
-describe('NavigationComponent', () => {
-  let component: NavigationComponent;
-  let fixture: ComponentFixture<NavigationComponent>;
+describe('MoneyListTypeEditComponent', () => {
+  let component: MoneyListTypeEditComponent;
+  let fixture: ComponentFixture<MoneyListTypeEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationComponent ]
+      declarations: [ MoneyListTypeEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavigationComponent);
+    fixture = TestBed.createComponent(MoneyListTypeEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
