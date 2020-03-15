@@ -21,21 +21,26 @@ export class DataService {
   }
 
   installRegional() {
-    for(let i = 0; i < regional.length; i++) {
-      const object = {
-        id: i+1,
-        name: regional[i],
-        created_date: new Date(),
-        updated_date: new Date(),
-        active: 1
-      }
-
-      this.dbService.add('regional', object).then((result: any) => {
-        if(result) {
-          console.log('install regional ' + object[i]);
+    this.dbService.count('regional').then((count: any) => {
+      if(count === 0) {
+        for(let i = 0; i < regional.length; i++) {
+          const object = {
+            id: i+1,
+            name: regional[i],
+            created_date: new Date(),
+            updated_date: new Date(),
+            active: 1
+          }
+    
+          this.dbService.add('regional', object).then((result: any) => {
+            if(result) {
+              console.log('install regional ' + object[i]);
+            }
+          }); 
         }
-      }); 
-    }
+      }
+    });
+    
   }
 
   installLeagerBook () {
