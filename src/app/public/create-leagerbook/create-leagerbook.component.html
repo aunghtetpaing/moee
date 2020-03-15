@@ -10,19 +10,24 @@
     <mat-drawer #drawer mode="side">
         <app-side-navigation></app-side-navigation>
     </mat-drawer>
-  
+
     <div class="example-sidenav-content">
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="true">
               <mat-expansion-panel-header>
-                <mat-panel-title> ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ </mat-panel-title>
-                <mat-panel-description> ပြည်နယ်နှင့်တိုင်းဒေသကြီးများအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
+                <mat-panel-title> လယ်ဂျာစာအုပ်များ </mat-panel-title>
+                <mat-panel-description> လယ်ဂျာစာအုပ်များအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
               </mat-expansion-panel-header>
               
-              <form [formGroup]="regionalForm" (ngSubmit)="onSubmit()" class="regionalForm">
-                <mat-form-field hintLabel="ပြည်နယ်နှင့်တိုင်းဒေသကြီးနာမည်ထည့်ရန်">
-                    <input matInput type="text" formControlName="regionalName" />
-                    <mat-error *ngIf="submitted.add && f.regionalName.hasError('required')"> ပြည်နယ်နှင့်တိုင်းဒေသကြီးနာမည်ထည့်ရန်လိုအပ်ပါသည် </mat-error>
+              <form [formGroup]="leagerBookForm" (ngSubmit)="createNewLeagerBook()" class="regionalForm">
+                <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ခေါင်းစဉ်ထည့်ရန်">
+                    <input matInput type="text" formControlName="name" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ပြုလုပ်လိုသည့် (နှစ်လ) ရွေးချယ်ရန်">
+                    <input matInput [matDatepicker]="picker" formControlName="getDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker touchUi startView="multi-year"></mat-datepicker>
                 </mat-form-field>
 
                 <button mat-raised-button color="primary"> <mat-icon> add_circle </mat-icon> သိမ်းမည် </button>
@@ -30,9 +35,10 @@
 
               <mat-paginator [pageSizeOptions]="[15, 30, 60, 120]" class="paginator"></mat-paginator>
 
-              <div class="table-header">
+              <!-- <div class="table-header">
                 <button mat-raised-button color="primary" (click)="exportAsExcelFile()"> <mat-icon> cloud_download </mat-icon> Excel ဖိုင်ရယူမည် </button> 
-              </div>
+              </div> -->
+
               <table mat-table [dataSource]="dataSource" class="table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
@@ -40,8 +46,18 @@
                   </ng-container>
         
                 <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ပြည်နယ်/တိုင်း </th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> လယ်ဂျာစာအုပ်ခေါင်း </th>
                   <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="year">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ခုနှစ် </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.year }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="month">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> လ </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.month }} </td>
                 </ng-container>
               
                 <ng-container matColumnDef="created_date">
@@ -67,11 +83,11 @@
                 <ng-container matColumnDef="option">
                     <th mat-header-cell *matHeaderCellDef> ရွေးချယ်စရာ </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openEditRegionalForm(element)"> 
+                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openLeagerEditTemplateForm(element)"> 
                             <mat-icon> cloud_upload </mat-icon> 
                         </button>
 
-                        <button mat-icon-button color="primary" matTooltip="{{ element.name }} အတွင်းရှိ မြို့နယ်များထည့်သွင်းရန်" [matTooltipPosition]="'above'" (click)="openAddStateForm(element)"> 
+                        <button mat-icon-button color="primary" matTooltip="{{ element.name }} အတွင်းရှိ စာမျက်နှာများကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/page/{{ element.id }}"> 
                           <mat-icon> playlist_add </mat-icon> 
                         </button>
 
@@ -113,20 +129,23 @@
   </mat-nav-list>
 </ng-template>
 
-<ng-template #editRegionalTemplate>
+<ng-template #openLeagerEditTemplate>
   <mat-nav-list>
-    <h3> {{ editObject.name }} </h3>
+    <h3> လယ်ဂျာစာအုပ်ခေါင်းစဉ် {{ editObject.name }} </h3>
 
-    <form [formGroup]="regionalForm" (ngSubmit)="editRegional()" class="state-form">
-      <mat-form-field hintLabel="{{ editObject.name }} အားပြင်ဆင်ရန်" class="input-sheet">
-        <input matInput type="text" formControlName="regionalName" value="{{ editObject.name }}"/>
+    <form [formGroup]="leagerBookForm" (ngSubmit)="editLeagerBook(editObject)" class="sheet-form">
+        <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ခေါင်းစဉ်ထည့်ရန်">
+            <input matInput type="text" formControlName="name" />
+        </mat-form-field>
 
-        <mat-error *ngIf="submitted.edit && f.regionalName.hasError('required')"> ပြည်နယ်နှင့်တိုင်းဒေသကြီးနာမည်ထည့်ရန်လိုအပ်ပါသည် </mat-error>
-      </mat-form-field>
+        <mat-form-field hintLabel="လယ်ဂျာစာအုပ်ပြုလုပ်လိုသည့် (နှစ်လ) ရွေးချယ်ရန်">
+            <input matInput [matDatepicker]="picker" formControlName="getDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker touchUi startView="multi-year"></mat-datepicker>
+        </mat-form-field>
 
-        <button mat-raised-button color="primary" class="state-save"> 
-          <mat-icon> save </mat-icon> ပြင်ဆင်မှုကိုသိမ်းမည်
-        </button>
-    </form>
+        <button mat-raised-button color="primary"> <mat-icon> save </mat-icon> သိမ်းမည် </button>
+      </form>
+
   </mat-nav-list>
 </ng-template>

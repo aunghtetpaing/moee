@@ -64,9 +64,9 @@ const TREE_DATA: NavNode[] = [
     url: 'regional',
     children: [
       {
-        name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ',
+        name: 'လယ်ဂျာစာအုပ်အသစ်ပြုလုပ်ရန်',
         icon: 'adjust',
-        url: '/regional'
+        url: '/create-leagerbook'
       },
     ]
   },
@@ -76,14 +76,33 @@ const TREE_DATA: NavNode[] = [
     url: 'regional',
     children: [
       {
-        name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ',
+        name: 'မီတာအမျိုးအစား'
         icon: 'adjust',
-        url: '/regional'
+        url: '/metertype'
       },
+      {
+        name: 'မီတာစာရင်းသွင်းရန်',
+        icon: 'adjust',
+        url: '/add-meter'
+      },
+   },
+   {
+    name: 'မီတာများ',
+    icon: 'flash_on',
+    children: [
+      { name: 'ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ', url: '/regional' },
+      { name: 'မြို့နယ်များ', url: '/division' },
+      { name: 'မီတာရုံ', url: '/meter-office' }
     ]
   },
+  {
+    name: 'ငွေစာရင်း',
+    url: '',
+    children: [
+      { name: 'ငွေစာရင်းများအားကြည့်ရန်', url: '/money-type' }
+    ]
+  }
 ];
-
 
 @Component({
   selector: 'app-side-navigation',

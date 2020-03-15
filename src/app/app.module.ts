@@ -22,6 +22,14 @@ import { NavigationComponent } from './public/share/navigation/navigation.compon
 import { RegionalComponent } from './public/regional/regional.component';
 import { UnitSpecificationComponent } from './public/unit-specification/unit-specification.component';
 import { UnitSpecificationDetailComponent } from './public/unit-specification-detail/unit-specification-detail.component';
+import { DivisionComponent } from './public/division/division.component';
+import { MeterOfficeComponent } from './public/meter-office/meter-office.component';
+import { RegionalPipe } from './pipes/regional.pipe';
+import { CreateLeagerbookComponent } from './public/create-leagerbook/create-leagerbook.component';
+import { PageComponent } from './public/page/page.component';
+import { MoneytypeComponent } from './public/moneytype/moneytype.component';
+import { MetertypeComponent } from './public/metertype/metertype.component';
+import { AddMeterComponent } from './public/add-meter/add-meter.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -39,7 +47,15 @@ const dbConfig: DBConfig = {
     NavigationComponent,
     RegionalComponent,
     UnitSpecificationComponent,
-    UnitSpecificationDetailComponent
+    UnitSpecificationDetailComponent,
+    DivisionComponent,
+    MeterOfficeComponent,
+    RegionalPipe,
+    CreateLeagerbookComponent,
+    PageComponent,
+    MoneytypeComponent,
+    MetertypeComponent,
+    AddMeterComponent,
   ],
   imports: [
     BrowserModule,

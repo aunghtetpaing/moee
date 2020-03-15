@@ -15,14 +15,13 @@
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="true">
               <mat-expansion-panel-header>
-                <mat-panel-title> ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ </mat-panel-title>
-                <mat-panel-description> ပြည်နယ်နှင့်တိုင်းဒေသကြီးများအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
+                <mat-panel-title> မီတာအမျိုးအစားများ </mat-panel-title>
+                <mat-panel-description> မီတာအမျိုးအစားများအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
               </mat-expansion-panel-header>
               
-              <form [formGroup]="regionalForm" (ngSubmit)="onSubmit()" class="regionalForm">
-                <mat-form-field hintLabel="ပြည်နယ်နှင့်တိုင်းဒေသကြီးနာမည်ထည့်ရန်">
-                    <input matInput type="text" formControlName="regionalName" />
-                    <mat-error *ngIf="submitted.add && f.regionalName.hasError('required')"> ပြည်နယ်နှင့်တိုင်းဒေသကြီးနာမည်ထည့်ရန်လိုအပ်ပါသည် </mat-error>
+              <form [formGroup]="meterTypeForm" (ngSubmit)="create()" class="regionalForm">
+                <mat-form-field hintLabel="မီတာအမျိုးအစားများအားစာရင်းသွင်းရန်" >
+                    <input matInput type="text" formControlName="name" />
                 </mat-form-field>
 
                 <button mat-raised-button color="primary"> <mat-icon> add_circle </mat-icon> သိမ်းမည် </button>
@@ -30,19 +29,17 @@
 
               <mat-paginator [pageSizeOptions]="[15, 30, 60, 120]" class="paginator"></mat-paginator>
 
-              <div class="table-header">
-                <button mat-raised-button color="primary" (click)="exportAsExcelFile()"> <mat-icon> cloud_download </mat-icon> Excel ဖိုင်ရယူမည် </button> 
-              </div>
               <table mat-table [dataSource]="dataSource" class="table">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
                     <td mat-cell *matCellDef="let element"> 0000{{ element.id }} </td>
-                  </ng-container>
-        
+                  </ng-container> 
+
                 <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ပြည်နယ်/တိုင်း </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ငွေစာရင်းအမျိုးအစား </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
                 </ng-container>
+
               
                 <ng-container matColumnDef="created_date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> စာရင်းပြုစုသည့်ရက်စွဲ </th>
@@ -67,13 +64,13 @@
                 <ng-container matColumnDef="option">
                     <th mat-header-cell *matHeaderCellDef> ရွေးချယ်စရာ </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openEditRegionalForm(element)"> 
+                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openEditTemplate(element)"> 
                             <mat-icon> cloud_upload </mat-icon> 
                         </button>
 
-                        <button mat-icon-button color="primary" matTooltip="{{ element.name }} အတွင်းရှိ မြို့နယ်များထည့်သွင်းရန်" [matTooltipPosition]="'above'" (click)="openAddStateForm(element)"> 
+                        <!-- <button mat-icon-button color="primary" matTooltip="{{ element.name }} အတွင်းရှိ စာမျက်နှာများကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/page/{{ element.id }}"> 
                           <mat-icon> playlist_add </mat-icon> 
-                        </button>
+                        </button> -->
 
                         <!-- <button mat-icon-button color="primary" matTooltip="အသေးစိတ်ကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/regional_detail/:id"> 
                           <mat-icon> assessment </mat-icon> 
@@ -95,38 +92,17 @@
   <p class="snackbar-message"> {{ actionMessage }} </p>
 </ng-template>
 
-<ng-template #addStateTemplate>
-  <mat-nav-list>
-    <h3> {{ stateObject.title }} </h3>
-
-    <form [formGroup]="stateForm" (ngSubmit)="saveState()" class="state-form">
-      <mat-form-field hintLabel="မြို့နယ်နာမည်ထည့်သွင်းရန်" class="input-sheet">
-        <input matInput type="text" formControlName="name" />
-
-        <mat-error *ngIf="s.name.hasError('required')"> မြို့နယ်နာမည်ထည့်သွင်းရန်လိုအပ်ပါသည် </mat-error>
-      </mat-form-field>
-
-        <button mat-raised-button color="primary" class="state-save"> 
-          <mat-icon> save </mat-icon> သိမ်းမည်
-        </button>
-    </form>
-  </mat-nav-list>
-</ng-template>
-
-<ng-template #editRegionalTemplate>
+<ng-template #editTemplate>
   <mat-nav-list>
     <h3> {{ editObject.name }} </h3>
 
-    <form [formGroup]="regionalForm" (ngSubmit)="editRegional()" class="state-form">
-      <mat-form-field hintLabel="{{ editObject.name }} အားပြင်ဆင်ရန်" class="input-sheet">
-        <input matInput type="text" formControlName="regionalName" value="{{ editObject.name }}"/>
+    <form [formGroup]="meterTypeForm" (ngSubmit)="edit(editObject)" class="sheet-form">
+        <mat-form-field hintLabel="မီတာအမျိုးအစားများအားစာရင်းသွင်းရန်">
+            <input matInput type="text" formControlName="name" />
+        </mat-form-field>
 
-        <mat-error *ngIf="submitted.edit && f.regionalName.hasError('required')"> ပြည်နယ်နှင့်တိုင်းဒေသကြီးနာမည်ထည့်ရန်လိုအပ်ပါသည် </mat-error>
-      </mat-form-field>
+        <button mat-raised-button color="primary"> <mat-icon> save </mat-icon> သိမ်းမည် </button>
+      </form>
 
-        <button mat-raised-button color="primary" class="state-save"> 
-          <mat-icon> save </mat-icon> ပြင်ဆင်မှုကိုသိမ်းမည်
-        </button>
-    </form>
   </mat-nav-list>
 </ng-template>
