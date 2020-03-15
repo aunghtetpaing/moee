@@ -23,6 +23,8 @@ import { RegionalComponent } from './public/regional/regional.component';
 import { DivisionComponent } from './public/division/division.component';
 import { MeterOfficeComponent } from './public/meter-office/meter-office.component';
 import { RegionalPipe } from './pipes/regional.pipe';
+import { CreateLeagerbookComponent } from './public/create-leagerbook/create-leagerbook.component';
+import { PageComponent } from './public/page/page.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -41,7 +43,9 @@ const dbConfig: DBConfig = {
     RegionalComponent,
     DivisionComponent,
     MeterOfficeComponent,
-    RegionalPipe
+    RegionalPipe,
+    CreateLeagerbookComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
