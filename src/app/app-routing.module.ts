@@ -10,6 +10,8 @@ import { MeterOfficeComponent } from './public/meter-office/meter-office.compone
 import { CreateLeagerbookComponent } from './public/create-leagerbook/create-leagerbook.component';
 import { PageComponent } from './public/page/page.component';
 import { MoneytypeComponent } from './public/moneytype/moneytype.component';
+import { MetertypeComponent } from './public/metertype/metertype.component';
+import { AddMeterComponent } from './public/add-meter/add-meter.component';
 
 
 const routes: Routes = [
@@ -22,7 +24,9 @@ const routes: Routes = [
   { path: 'meter-office', component: MeterOfficeComponent, canActivate:[AuthGuard] },
   { path: 'create-leagerbook', component: CreateLeagerbookComponent, canActivate:[AuthGuard] },
   { path: 'page/:id', component: PageComponent, canActivate:[AuthGuard] },
-  { path: 'money-type', component: MoneytypeComponent, canActivate:[AuthGuard] }
+  { path: 'money-type', component: MoneytypeComponent, canActivate:[AuthGuard] },
+  { path: 'metertype', component: MetertypeComponent, canActivate:[AuthGuard] },
+  { path: 'add-meter', component: AddMeterComponent, canActivate:[AuthGuard] },
 ];
 
 @NgModule({

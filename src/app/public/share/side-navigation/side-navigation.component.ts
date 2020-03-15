@@ -39,6 +39,14 @@ const TREE_DATA: NavNode[] = [
       { name: 'ငွေစာရင်းများအားကြည့်ရန်', url: '/money-type' }
     ]
   },
+  {
+    name: 'မီတာ',
+    url: '',
+    children: [
+      { name: 'မီတာအမျိုးအစား', url: '/metertype' },
+      { name: 'မီတာစာရင်းသွင်းရန်', url: '/add-meter' }
+    ]
+  },
 
 ];
 
