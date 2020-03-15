@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.installLeagerBook();
+    this.dataService.installMoneyType();
   }
 
 }

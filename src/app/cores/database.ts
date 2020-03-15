@@ -66,5 +66,15 @@ export const DatabaseTables: any = [
             { name: 'updated_date', keypath: 'updated_date', options: { unique: false }},
             { name: 'active', keypath: 'active', options: { unique: false }}
         ]
+    },
+    {
+        store: 'moneyType',
+        storeConfig: { keyPath: 'id', autoIncrement: true },
+        storeSchema:[
+            { name: 'name', keypath: 'name', options: { unique: true }},
+            { name: 'created_date', keypath: 'created_date', options: { unique: false }},
+            { name: 'updated_date', keypath: 'updated_date', options: { unique: false }},
+            { name: 'active', keypath: 'active', options: { unique: false }}
+        ]
     }
 ]

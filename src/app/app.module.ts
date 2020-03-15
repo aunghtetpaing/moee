@@ -25,6 +25,7 @@ import { MeterOfficeComponent } from './public/meter-office/meter-office.compone
 import { RegionalPipe } from './pipes/regional.pipe';
 import { CreateLeagerbookComponent } from './public/create-leagerbook/create-leagerbook.component';
 import { PageComponent } from './public/page/page.component';
+import { MoneytypeComponent } from './public/moneytype/moneytype.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -45,7 +46,8 @@ const dbConfig: DBConfig = {
     MeterOfficeComponent,
     RegionalPipe,
     CreateLeagerbookComponent,
-    PageComponent
+    PageComponent,
+    MoneytypeComponent
   ],
   imports: [
     BrowserModule,
