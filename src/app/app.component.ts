@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     this.dataService.installRegional();
     this.dataService.installLeagerBook();
     this.dataService.installMoneyType();
+    this.dataService.installMeterType();
   }
 
 }

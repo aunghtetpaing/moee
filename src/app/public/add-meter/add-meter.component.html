@@ -1,0 +1,196 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <ul class="navigation">
+            <li> <button mat-button (click)="drawer.toggle()"> <mat-icon> menu </mat-icon> </button> </li>
+        </ul>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side">
+        <app-side-navigation></app-side-navigation>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title> မီတာစာရင်းသွင်းရန် </mat-panel-title>
+                <mat-panel-description> မီတာအလုံးများအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <form [formGroup]="meterForm" (ngSubmit)="createMeter()" class="regionalForm">
+                <mat-form-field hintLabel="စတင်သုံးစွဲသည့်ရက်">
+                    <input matInput [matDatepicker]="picker" formControlName="start_date" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker touchUi startView="multi-year"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field hintLabel="မီတာအမှတ်">
+                    <input matInput type="text" formControlName="meter_no" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="ကုဒ်">
+                    <input matInput type="text" formControlName="code" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="မီတာအမျိုးအစား">
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let meter of meterType" value="{{ meter.id }}"> {{ meter.name }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field hintLabel="ငွေစာရင်းခေါင်းစဉ်">
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let money of moneyType" value="{{ money.id }}"> {{ money.name }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field hintLabel="မြင်းကောင်ရေ">
+                    <input matInput type="text" formControlName="house_power" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="ထရမ်စဖေါ်မာ">
+                    <input matInput type="text" formControlName="transformer" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="အမည်">
+                    <input matInput type="text" formControlName="person_name" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="လိပ်စာ">
+                    <input matInput type="text" formControlName="person_address" />
+                </mat-form-field>
+
+                <mat-form-field hintLabel="တယ်လီဖုန်းအမှတ်">
+                    <input matInput type="text" formControlName="person_phone" />
+                </mat-form-field>
+
+                <div class="full">
+                  <button mat-raised-button color="primary"> <mat-icon> add_circle </mat-icon> သိမ်းမည် </button>
+                </div>
+              </form>
+
+              <mat-paginator [pageSizeOptions]="[15, 30, 60, 120]" class="paginator"></mat-paginator>
+
+              <table mat-table [dataSource]="dataSource" class="table">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                    <td mat-cell *matCellDef="let element"> 0000{{ element.id }} </td>
+                  </ng-container> 
+
+                <ng-container matColumnDef="start_date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> စတင်အသုံးပြုသည့်ရက် </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.start_date | date: 'short' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="meter_no">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> မီတာအမှတ် </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.meter_no }} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="code">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ကုဒ်အမှတ် </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.code }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> မီတာအမျိုးအစား </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.type }} </td>
+                </ng-container>
+   
+                <ng-container matColumnDef="money_type">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ငွေစာရင်းခေါင်းစဉ် </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.money_type }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="house_power">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> မြင်းကောင်ရေ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.house_power }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="transformer">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ထရမ်စဖေါ်မာ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.transformer }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="person_name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> အမည် </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.person_name }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="person_address">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> လိပ်စာ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.person_address }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="person_phone">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> တယ်လီဖုန်းအမှတ် </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.person_phone }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="active">
+                  <th mat-header-cell *matHeaderCellDef> အခြေအနေ </th>
+                  <td mat-cell *matCellDef="let element">
+                      <mat-slide-toggle class="example-margin" color="primary" [checked]="element.active === 1" (change)="statusChange(element)"> 
+                          <span *ngIf="element.active === 0"> အသုံးပြုခြင်းပိတ်ထားပါသည် </span>
+                          <span *ngIf="element.active === 1"> အသုံးပြုရန်အသင့်ရှိသည် </span>
+                      </mat-slide-toggle>
+                  </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="created_date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> စာရင်းပြုစုသည့်ရက်စွဲ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.created_date | date: 'short' }} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="updated_date">
+                  <th mat-header-cell *matHeaderCellDef> ပြင်ဆင်သည့်ရက်စွဲ </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.updated_date | date: 'short' }} </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="option">
+                    <th mat-header-cell *matHeaderCellDef> ရွေးချယ်စရာ </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openEditTemplate(element)"> 
+                            <mat-icon> cloud_upload </mat-icon> 
+                        </button>
+
+                        <!-- <button mat-icon-button color="primary" matTooltip="{{ element.name }} အတွင်းရှိ စာမျက်နှာများကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/page/{{ element.id }}"> 
+                          <mat-icon> playlist_add </mat-icon> 
+                        </button> -->
+
+                        <!-- <button mat-icon-button color="primary" matTooltip="အသေးစိတ်ကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/regional_detail/:id"> 
+                          <mat-icon> assessment </mat-icon> 
+                        </button> -->
+                        
+                    </td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+  </mat-drawer-container>
+
+
+<ng-template #snackBarTemplate>
+  <p class="snackbar-message"> {{ actionMessage }} </p>
+</ng-template>
+
+<ng-template #editTemplate>
+  <mat-nav-list>
+    <h3> {{ editObject.name }} </h3>
+
+    <form [formGroup]="meterTypeForm" (ngSubmit)="edit(editObject)" class="sheet-form">
+        <mat-form-field hintLabel="မီတာအမျိုးအစားများအားစာရင်းသွင်းရန်">
+            <input matInput type="text" formControlName="name" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary"> <mat-icon> save </mat-icon> သိမ်းမည် </button>
+      </form>
+
+  </mat-nav-list>
+</ng-template>

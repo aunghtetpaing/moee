@@ -36,11 +36,6 @@ export class MeterOfficeComponent implements OnInit {
 
   private getTable() {
     this.dbService.getAll('meterOffice').then((table: any) => {
-      console.log(table);
-
-      for(let i =0; i<table.length; i++) {
-        
-      }
       this.tableData = new MatTableDataSource(table);
       this.tableData.paginator = this.paginator;
     })
