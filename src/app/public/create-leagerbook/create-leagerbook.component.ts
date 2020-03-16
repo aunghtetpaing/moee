@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatTableDataSource, MatSnackBar, MatPaginator, MatBottomSheet } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatPaginator, MatBottomSheet, MatSort } from '@angular/material';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 @Component({
@@ -14,13 +14,14 @@ export class CreateLeagerbookComponent implements OnInit {
   leagerBookForm: FormGroup;
   dataSource: MatTableDataSource<any>;
   actionMessage: string = null;
-  snackBarOption: any = { duration: 3000, horizontalPosition: 'center', verticalPosition: 'bottom' };
-  displayedColumns: any = ['id', 'name', 'year', 'month', 'created_date', 'updated_date', 'active', 'option'];
+  snackBarOption: any = { duration: 2000, horizontalPosition: 'center', verticalPosition: 'bottom' };
+  displayedColumns: any = ['id', 'name', 'created_date', 'updated_date', 'option'];
   editObject: any = {};
   dialogComfirm: any = {};
 
   @ViewChild('snackBarTemplate', {static: false}) snackBarTemplate: any = TemplateRef;
   @ViewChild(MatPaginator, { static: false }) matPaginator: any = MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild('openLeagerEditTemplate', {static: false }) openLeagerEditTemplate: any = TemplateRef;
 
 
@@ -37,8 +38,7 @@ export class CreateLeagerbookComponent implements OnInit {
 
   private leagerBookFormBuilder() {
     this.leagerBookForm = this.fb.group({
-      name: ['',[Validators.required]],
-      getDate: ['', [Validators.required]],
+      name: ['',[Validators.required]]
     })
   }
 
@@ -46,8 +46,15 @@ export class CreateLeagerbookComponent implements OnInit {
     this.dbService.getAll('leagerbook').then((result: any) => {
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.matPaginator;
+      this.dataSource.sort = this.sort;
     });
     
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   statusChange(acitiveStatus: any) {
@@ -88,8 +95,6 @@ export class CreateLeagerbookComponent implements OnInit {
     }
     this.editObject = element;
     this.editObject.name = this.getLeagerBookControl.name.value;
-    this.editObject.year = new Date(this.getLeagerBookControl.getDate.value).getUTCFullYear();
-    this.editObject.month = new Date(this.getLeagerBookControl.getDate.value).getUTCMonth() + 1;
     this.editObject.updated_date = new Date();
 
     this.dbService.update('leagerbook',this.editObject).then(() => {
@@ -109,9 +114,6 @@ export class CreateLeagerbookComponent implements OnInit {
 
     const newLeagerbookObject = {
       name: this.getLeagerBookControl.name.value,
-      opendate: this.getLeagerBookControl.getDate.value,
-      year: new Date(this.getLeagerBookControl.getDate.value).getUTCFullYear(),
-      month: new Date(this.getLeagerBookControl.getDate.value).getUTCMonth() + 1,
       created_date: new Date(),
       updated_date: new Date(),
       active: 1

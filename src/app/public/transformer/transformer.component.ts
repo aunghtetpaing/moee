@@ -5,19 +5,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 @Component({
-  selector: 'app-page',
-  templateUrl: './page.component.html',
-  styleUrls: ['./page.component.css']
+  selector: 'app-transformer',
+  templateUrl: './transformer.component.html',
+  styleUrls: ['./transformer.component.css']
 })
-
-export class PageComponent implements OnInit {
+export class TransformerComponent implements OnInit {
 
   id: string;
-  leagerPageForm: FormGroup;
+  transformerForm: FormGroup;
   leagerBook: any = {};
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns: any = ['id', 'page', 'created_date', 'updated_date', 'option'];
+  displayedColumns: any = ['id', 'name', 'code', 'type', 'volt', 'installation_date', 'created_date', 'updated_date', 'option'];
 
   dialogComfirm: any = {};
   actionMessage: string = null;
@@ -33,63 +32,54 @@ export class PageComponent implements OnInit {
 
   @ViewChild('snackBarTemplate', { static: false }) snackBarTemplate: any = TemplateRef;
   @ViewChild(MatPaginator, { static: false }) matPaginator: any = MatPaginator;
-  @ViewChild('editLeagerPageTemplate', { static: false }) editLeagerPageTemplate: any = TemplateRef;
+  @ViewChild('editTemplate', { static: false }) editTemplate: any = TemplateRef;
 
   constructor(
-    private activeRoute: ActivatedRoute,
     private fb: FormBuilder,
     private snackBarCtrl: MatSnackBar,
     private sheetCtrl: MatBottomSheet,
     private dbService: NgxIndexedDBService
-  ) { 
+  ) { }
 
-    this.activeRoute.paramMap.subscribe((url: any) => {
-      this.id = url.params.id;
-    });
-
-    this.dbService.getByID('leagerbook',this.id).then((result: any) => {
-      this.leagerBook = result;
-    });
+  get getControls() {
+    return this.transformerForm.controls;
   }
 
-  get getLeagerPageControl() {
-    return this.leagerPageForm.controls;
-  }
-
-  private leagerPageFormBuilder() {
-    this.leagerPageForm = this.fb.group({
-      name: [null,[Validators.required]]
+  private formBuilder() {
+    this.transformerForm = this.fb.group({
+      name: [null,[Validators.required]],
+      code: [null, [Validators.required]],
+      type: ['CT', [Validators.required]],
+      volt: [null, [Validators.required]],
+      installation_date: [null, [Validators.required]]
     });
   }
 
   private getAll() {
-    this.dbService.getAll('leager_page').then((result: any) => {
-      let data: any = [];
-
-      for (let i=0; i < result.length; i++) {
-        if (result[i].book_id === this.id.toString()) {
-            data.push(result[i]);
-        }
-      }
-      this.dataSource = new MatTableDataSource(data);
+    this.dbService.getAll('transformer').then((result: any) => {
+      this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.matPaginator;
     });
   }
 
-  openLeagerPageTemplate(element: any) {
+  openTemplate(element: any) {
     this.editObject = element;
-    this.dialogComfirm = this.sheetCtrl.open(this.editLeagerPageTemplate);
+    this.dialogComfirm = this.sheetCtrl.open(this.editTemplate);
   }
 
-  editLagerPage() {
+  edit() {
     
-    if(this.leagerPageForm.invalid) {
+    if(this.transformerForm.invalid) {
       return;
     }
 
-    this.editObject.name = this.getLeagerPageControl.name.value;
+    this.editObject.name = this.getControls.name.value;
+    this.editObject.code = this.getControls.code.value;
+    this.editObject.type = this.getControls.type.value;
+    this.editObject.volt = this.getControls.volt.value;
+    this.editObject.installation_date = this.getControls.installation_date.value;
 
-    this.dbService.update('leager_page',this.editObject).then(() => {
+    this.dbService.update('transformer',this.editObject).then(() => {
       this.actionMessage = 'ပြင်ဆင်မှုအောင်မြင်ပါသည်';
       this.snackBarCtrl.openFromTemplate(this.snackBarTemplate,this.snackBarOption);
       this.dialogComfirm.dismiss();
@@ -97,20 +87,23 @@ export class PageComponent implements OnInit {
     });
   }
 
-  createLeagerPage() {
-    if(this.leagerPageForm.invalid) {
+  create() {
+    if(this.transformerForm.invalid) {
       return;
     }
 
     const object = {
-      name: this.getLeagerPageControl.name.value,
-      book_id: this.id,
+      name: this.getControls.name.value,
+      code: this.getControls.code.value,
+      type: this.getControls.type.value,
+      volt: this.getControls.volt.value,
+      installation_date: this.getControls.installation_date.value,
       created_date: new Date(),
       updated_date: new Date(),
       active: 1
     }
 
-    this.dbService.add('leager_page', object).then(() => {
+    this.dbService.add('transformer', object).then(() => {
       this.actionMessage = 'စာရင်းသွင်းမှုအောင်မြင်ပါသည်';
       this.snackBarCtrl.openFromComponent(this.snackBarTemplate, this.snackBarOption);
       this.getAll();
@@ -120,7 +113,7 @@ export class PageComponent implements OnInit {
 
   ngOnInit() {
     this.getAll();
-    this.leagerPageFormBuilder();
+    this.formBuilder();
   }
 
 }

@@ -47,6 +47,13 @@ const TREE_DATA: NavNode[] = [
       { name: 'မီတာစာရင်းသွင်းရန်', url: '/add-meter' }
     ]
   },
+  {
+    name: 'ထရမ်စဖေါ်မာ',
+    url: '',
+    children: [
+      { name: 'ထရမ်စဖေါ်မာစာရင်းသွင်းရန်', url: '/transformer' }
+    ]
+  },
 
 ];
 
