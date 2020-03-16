@@ -14,6 +14,8 @@ import { PageComponent } from './public/page/page.component';
 import { MoneytypeComponent } from './public/moneytype/moneytype.component';
 import { MetertypeComponent } from './public/metertype/metertype.component';
 import { AddMeterComponent } from './public/add-meter/add-meter.component';
+import { TransformerComponent } from './public/transformer/transformer.component';
+import { TransformerDetailComponent } from './public/transformer-detail/transformer-detail.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -30,6 +32,8 @@ const routes: Routes = [
   { path: 'money-type', component: MoneytypeComponent, canActivate:[AuthGuard] },
   { path: 'metertype', component: MetertypeComponent, canActivate:[AuthGuard] },
   { path: 'add-meter', component: AddMeterComponent, canActivate:[AuthGuard] },
+  { path: 'transformer', component: TransformerComponent, canActivate:[AuthGuard] },
+  { path: 'transformer-detail/:id', component: TransformerDetailComponent, canActivate:[AuthGuard] },
 ];
 
 @NgModule({

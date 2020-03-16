@@ -30,6 +30,8 @@ import { PageComponent } from './public/page/page.component';
 import { MoneytypeComponent } from './public/moneytype/moneytype.component';
 import { MetertypeComponent } from './public/metertype/metertype.component';
 import { AddMeterComponent } from './public/add-meter/add-meter.component';
+import { TransformerComponent } from './public/transformer/transformer.component';
+import { TransformerDetailComponent } from './public/transformer-detail/transformer-detail.component';
 
 const dbConfig: DBConfig = {
   name: 'moee',
@@ -56,6 +58,11 @@ const dbConfig: DBConfig = {
     MoneytypeComponent,
     MetertypeComponent,
     AddMeterComponent,
+<<<<<<< HEAD
+=======
+    TransformerComponent,
+    TransformerDetailComponent
+>>>>>>> 55cb0ea4e03e81c11aec64ebe52d17d6734b408f
   ],
   imports: [
     BrowserModule,

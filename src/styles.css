@@ -96,3 +96,13 @@ table td, th {
 .sheet-form,
 .sheet-form > .mat-form-field { width: 100%; }
 .sheet-form > button { width: 100%; margin-top: 20px; }
+<<<<<<< HEAD
+=======
+.filter { display: flex; flex-direction: row-reverse; }
+.cdk-overlay-pane { max-width: 50%!important; }
+.flex-layout { width: 100%;  display: flex; flex-direction: row; }
+.block { width: 30%; }
+.block-left { width: 60%; padding-left: 20px; }
+.block-left > form > .mat-form-field { width: 100%; }
+.block-left > form > button { margin-top: 30px; }
+>>>>>>> 55cb0ea4e03e81c11aec64ebe52d17d6734b408f

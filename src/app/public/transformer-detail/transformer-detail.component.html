@@ -15,18 +15,43 @@
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="true">
               <mat-expansion-panel-header>
-                <mat-panel-title> လယ်ဂျာစာအုပ် - {{ leagerBook.name }} </mat-panel-title>
-                <mat-panel-description> လယ်ဂျာစာအုပ်စာမျက်နှာများအား စီမံခန့်ခွဲခြင်းများပြုလုပ်ရန် </mat-panel-description>
+                <mat-panel-title>  ထရမ်စဖေါ်မာ - {{ transformer.name }} </mat-panel-title>
+                <mat-panel-description>  ထရမ်စဖေါ်မာ၏ အသေးစိတ်အချက်အလက်  </mat-panel-description>
               </mat-expansion-panel-header>
-              
-              <form [formGroup]="leagerPageForm" (ngSubmit)="createLeagerPage()" class="regionalForm">
-                <h3> {{ leagerBook.name }} ထဲသို့စာမျက်နှာများစာရင်းလုပ်ရန် </h3>
-                <mat-form-field hintLabel="စာမျက်နှာခေါင်းစဉ်ထည့်ရန်">
-                    <input matInput type="text" formControlName="name" />
-                </mat-form-field>
+            
+              <div class="flex-layout">
+                <div class="block">
+                    <mat-card>
+                        <mat-card-content>
+                            <p>ထရမ်စဖေါ်မာအမည် - <b> {{ transformer.name }} </b> </p>
+                            <p> ထရမ်စဖေါ်မာကုဒ်အမှတ် - <b> {{ transformer.code }}  </b></p>
+                            <p> ထရမ်စဖေါ်မာအမျိုးအစား - <b> {{ transformer.type }} </b> </p>
+                            <p> Volt အား - <b> {{ transformer.volt }} </b> </p>
+                            <p> စတင်တပ်ဆင်သည့်ခုနှစ် - <b>  {{ transformer.installation_date | date: 'short' }} </b> </p>
+                            <p> စာရင်းပြုစုသည့်ရက်စွဲ - <b> {{ transformer.created_date | date: 'short' }}  </b> </p>
+                            <p> ပြင်ဆင်သည့်ရက်စွဲ - <b> {{ transformer.updated_date | date: 'short' }} </b> </p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+    
+                  <div class="block-left">
+                      <h3> ပြင်ဆင်မှုမှတ်တမ်းစာရင်းသွင်းရန် </h3>
+                    <form [formGroup]="transformerFormRepairForm" (ngSubmit)="create()" class="regionalForm">
+                        <mat-form-field hintLabel="ပြင်ဆင်သည့်အချက်အလက်စာရင်းသွင်းရန်">
+                            <textarea matInput formControlName="description"></textarea>
+                        </mat-form-field>
 
-                <button mat-raised-button color="primary"> <mat-icon> add_circle </mat-icon> သိမ်းမည် </button>
-              </form>
+                        <mat-form-field hintLabel="ပြင်ဆင်သည့်ရက်စွဲ">
+                            <input matInput [matDatepicker]="picker" formControlName="repair_date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+        
+                        <button mat-raised-button color="primary"> <mat-icon> add_circle </mat-icon> သိမ်းမည် </button>
+                      </form>
+                  </div>
+              </div>
+
 
               <mat-paginator [pageSizeOptions]="[15, 30, 60, 120]" class="paginator"></mat-paginator>
 
@@ -46,12 +71,16 @@
                     <td mat-cell *matCellDef="let element"> 0000{{ element.id }} </td>
                   </ng-container> 
 
-                <ng-container matColumnDef="page">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> စာမျက်နှာခေါင်းစဉ် </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ပြင်ဆင်သည့်အချက်အလက် </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
                 </ng-container>
 
-              
+                <ng-container matColumnDef="repair_date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ပြင်ဆင်သည့်ရက်စွဲ </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.repair_date | date: 'short' }} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="created_date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> စာရင်းပြုစုသည့်ရက်စွဲ </th>
                   <td mat-cell *matCellDef="let element"> {{ element.created_date | date: 'short' }} </td>
@@ -75,7 +104,7 @@
                 <ng-container matColumnDef="option">
                     <th mat-header-cell *matHeaderCellDef> ရွေးချယ်စရာ </th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openLeagerPageTemplate(element)"> 
+                        <button mat-icon-button color="primary" matTooltip="ပြင်ဆင်ရန်" [matTooltipPosition]="'above'" (click)="openTemplate(element)"> 
                             <mat-icon> cloud_upload </mat-icon> 
                         </button>
 
@@ -83,9 +112,9 @@
                           <mat-icon> playlist_add </mat-icon> 
                         </button> -->
 
-                        <button mat-icon-button color="primary" matTooltip="အသေးစိတ်ကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/regional_detail/:id"> 
+                        <!-- <button mat-icon-button color="primary" matTooltip="အသေးစိတ်ကြည့်ရန်" [matTooltipPosition]="'above'" routerLink="/transformer-detail/{{ element.id }}"> 
                           <mat-icon> assessment </mat-icon> 
-                        </button>
+                        </button> -->
                         
                     </td>
                   </ng-container>
@@ -103,31 +132,20 @@
   <p class="snackbar-message"> {{ actionMessage }} </p>
 </ng-template>
 
-<ng-template #addStateTemplate>
-  <mat-nav-list>
-    <h3> {{ stateObject.title }} </h3>
 
-    <form [formGroup]="stateForm" (ngSubmit)="saveState()" class="state-form">
-      <mat-form-field hintLabel="မြို့နယ်နာမည်ထည့်သွင်းရန်" class="input-sheet">
-        <input matInput type="text" formControlName="name" />
-
-        <mat-error *ngIf="s.name.hasError('required')"> မြို့နယ်နာမည်ထည့်သွင်းရန်လိုအပ်ပါသည် </mat-error>
-      </mat-form-field>
-
-        <button mat-raised-button color="primary" class="state-save"> 
-          <mat-icon> save </mat-icon> သိမ်းမည်
-        </button>
-    </form>
-  </mat-nav-list>
-</ng-template>
-
-<ng-template #editLeagerPageTemplate>
+<ng-template #editTemplate>
   <mat-nav-list>
     <h3> {{ editObject.name }} </h3>
 
-    <form [formGroup]="leagerPageForm" (ngSubmit)="editLagerPage(editObject)" class="sheet-form">
-        <mat-form-field hintLabel="စာမျက်နှာခေါင်းစဉ်">
-            <input matInput type="text" formControlName="name" />
+    <form [formGroup]="transformerFormRepairForm" (ngSubmit)="edit(editObject)" class="sheet-form">
+        <mat-form-field hintLabel="ပြင်ဆင်သည့်အချက်အလက်စာရင်းသွင်းရန်">
+            <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="ပြင်ဆင်သည့်ရက်စွဲ">
+            <input matInput [matDatepicker]="picker" formControlName="repair_date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <button mat-raised-button color="primary"> <mat-icon> save </mat-icon> သိမ်းမည် </button>

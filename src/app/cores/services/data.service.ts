@@ -47,11 +47,9 @@ export class DataService {
   installLeagerBook () {
     this.dbService.count('leagerbook').then((count: any) => {
       if(count === 0) {
-        for(let i=0; i<30; i++) {
+        for(let i=1; i<30; i++) {
           const object = {
             name: 'လယ်ဂျာစာအုပ်အမှတ်စဉ် - ' + i,
-            month: '2020',
-            year: '01',
             created_date: new Date(),
             updated_date: new Date(),
             active: 1
@@ -88,7 +86,7 @@ export class DataService {
   installMeterType() {
     this.dbService.count('metertype').then((count: any) => {
       if(count === 0) {
-        for(let i = 0; i<meterType.length; i++) {
+        for(let i = 1; i<meterType.length; i++) {
           
           const object = {
             name: meterType[i],

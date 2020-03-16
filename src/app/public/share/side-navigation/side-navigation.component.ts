@@ -101,7 +101,19 @@ const TREE_DATA: NavNode[] = [
     children: [
       { name: 'ငွေစာရင်းများအားကြည့်ရန်', url: '/money-type' }
     ]
+<<<<<<< HEAD
   }
+=======
+  },
+  {
+    name: 'ထရမ်စဖေါ်မာ',
+    url: '',
+    children: [
+      { name: 'ထရမ်စဖေါ်မာစာရင်းသွင်းရန်', url: '/transformer' }
+    ]
+  },
+
+>>>>>>> 55cb0ea4e03e81c11aec64ebe52d17d6734b408f
 ];
 
 @Component({

@@ -91,8 +91,6 @@ export class AddMeterComponent implements OnInit {
     this.dbService.getAll('meter').then((result: any) => {
       this.dataSource = new MatTableDataSource<any>(result);
       this.dataSource.paginator = this.matPaginator;
-
-      console.log(this.meterType);
     });
   }
 
